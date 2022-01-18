@@ -4,9 +4,10 @@
 }
 
 .item {
-    color: mediumvioletred;
+    text-decoration: none;
 }
 
 .active {
-    color: gold;
+    color: #c29417;
+    text-decoration: none;
 }
