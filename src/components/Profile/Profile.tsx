@@ -1,23 +1,19 @@
 import React from 'react';
 import s from './Profile.module.css'
-import MyPosts from "./MyPosts/MyPosts";
+import MyPosts, {MyPostType} from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {PostType} from "./MyPosts/Post/Post";
 
-type ProfileType = {
-    id: number
-    title: string
-    likeCounts: number
+export type ProfileType = {
+    state:Array<PostType>
 }
 
 const Profile = (props:ProfileType) => {
+    debugger
     return (
         <div className={s.content}>
-            <div>
-                <img src="https://img1.goodfon.ru/original/800x480/e/8e/mishki-v-lesu-medvedi-les.jpg" alt="bear"/>
-            </div>
-            <div>
-                ava+description
-            </div>
-            <MyPosts id={props.id} title={props.title} likeCounts={props.likeCounts}/>
+            <ProfileInfo/>
+            <MyPosts state={props.state}/>
         </div>
     );
 };

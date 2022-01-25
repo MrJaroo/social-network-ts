@@ -2,16 +2,17 @@ import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Profile from "./components/Profile/Profile";
+import Profile, {ProfileType} from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
+import {PostType} from "./components/Profile/MyPosts/Post/Post";
 
-const state = {
-    id: 1,
-    title: 'You ben',
-    likeCounts: 100
-}
+const postData:Array<PostType> = [
+    {id: 1, title: 'You ben', likeCounts: 100},
+    {id: 2, title: 'How title', likeCounts: 100},
+    {id: 3, title: 'I love react', likeCounts: 100},
+]
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                 <Navbar/>
                 <div className='content'>
                     <Routes>
-                        <Route path={'profile'} element={<Profile id={state.id} title={state.title} likeCounts={state.likeCounts}/>}/>
+                        <Route path={'profile'} element={<Profile state={postData}/>}/>
                         <Route path={'message'} element={<Dialogs/>}/>
                         <Route path={'news'} element={<News/>}/>
                     </Routes>
