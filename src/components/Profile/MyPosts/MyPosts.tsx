@@ -1,16 +1,18 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
-import Post, {PostType} from "./Post/Post";
+import Post, {PostTypeProps} from "./Post/Post";
 
 export type MyPostType = {
-    state: Array<PostType>
+    state: Array<PostTypeProps>
 }
 
 
-const MyPosts = (props: MyPostType) => {
+const MyPosts:React.FC<MyPostType> = ({
+    state
+                                      }) => {
     debugger
-    const elementPost = props.state.map(p => {
-        return <Post id={p.id} title={p.title} likeCounts={p.likeCounts}/>
+    const elementPost = state.map(p => {
+        return <Post id={p.id} message={p.message} likeCounts={p.likeCounts}/>
     })
 
     return (
