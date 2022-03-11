@@ -1,30 +1,38 @@
 import React, {LegacyRef} from 'react';
 import s from "./MyPosts.module.css";
 import Post, {PostTypeProps} from "./Post/Post";
-import {PosptsArr, posts} from "../../../redux/state";
+import {changeTextArea, PosptsArr, posts, state} from "../../../redux/state";
 
 export type MyPostType = {
     statePosts: PosptsArr
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    changeTextArea: (text: string) => void
 }
 
-const MyPosts:React.FC<MyPostType> = ({
-    statePosts,
-    addPost
-                                      }) => {
+const MyPosts: React.FC<MyPostType> = ({
+                                           statePosts,
+                                           addPost,
+                                           changeTextArea
+                                       }) => {
     const elementPost = statePosts.posts.map(p => {
-        return <Post id={p.id} message={p.message} likeCounts={p.likeCounts}/>
+        return <Post key={p.id} id={p.id} message={p.message} likeCounts={p.likeCounts}/>
     })
 
     let newAddPostElement = React.createRef<HTMLTextAreaElement>()
 
-    const onClickAddPostHeandler =() => {
+    const onClickAddPostHeandler = () => {
         let text = newAddPostElement
-        if(text.current){
-            addPost(text.current.value)
+        if (text.current) {
+            addPost()
         }
     }
 
+    const onPostChange = () => {
+        let text = newAddPostElement
+        if(text.current){
+            changeTextArea(text.current.value)
+        }
+    }
 
 
     return (
@@ -32,14 +40,14 @@ const MyPosts:React.FC<MyPostType> = ({
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newAddPostElement}></textarea>
+                    <textarea value={statePosts.messageInput} onChange={onPostChange} ref={newAddPostElement}/>
                 </div>
                 <div>
                     <button onClick={onClickAddPostHeandler}>Add post</button>
                 </div>
             </div>
             <div className={s.post}>
-                { elementPost }
+                {elementPost}
             </div>
         </div>
     );

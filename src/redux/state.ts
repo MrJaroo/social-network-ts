@@ -1,3 +1,4 @@
+
 export type posts = {
     id: number
     message: string
@@ -5,6 +6,7 @@ export type posts = {
 }
 export type PosptsArr = {
     posts: Array<posts>
+    messageInput: string
 }
 export type MessagePage = {
     dialogs: Array<Dialogs>
@@ -25,6 +27,10 @@ export type State = {
 }
 
 
+let rerenderIntaerThree = () => {
+    console.log('State change')
+}
+
 export let state: State = {
     profilePage: {
         posts: [
@@ -32,6 +38,7 @@ export let state: State = {
             {id: 2, message: 'How title', likeCounts: 1},
             {id: 3, message: 'I love react', likeCounts: 43},
         ],
+        messageInput: '',
     },
     messagePage: {
         dialogs: [
@@ -51,11 +58,20 @@ export let state: State = {
 }
 
 
-
-export const addPost = (postMessage: string) => {
-    const newPostAdd = {id: 5, message: postMessage, likeCounts: 0}
+export let addPost = () => {
+    const newPostAdd:posts = {id: 5, message: state.profilePage.messageInput, likeCounts: 0}
     state.profilePage.posts.push(newPostAdd)
-    console.log(state.profilePage.posts)
+    state.profilePage.messageInput = '';
+    rerenderIntaerThree()
+}
+
+export const changeTextArea = (text: string) => {
+    state.profilePage.messageInput = text;
+    rerenderIntaerThree()
+}
+
+export const subscribe = (observer:() => void) => {
+    rerenderIntaerThree = observer
 }
 
 
