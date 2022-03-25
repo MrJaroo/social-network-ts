@@ -1,7 +1,7 @@
 import React, {LegacyRef} from 'react';
 import s from "./MyPosts.module.css";
 import Post, {PostTypeProps} from "./Post/Post";
-import {changeTextArea, PosptsArr, posts, state} from "../../../redux/state";
+import {PosptsArr} from "../../../redux/state";
 
 export type MyPostType = {
     statePosts: PosptsArr
@@ -23,6 +23,7 @@ const MyPosts: React.FC<MyPostType> = ({
     const onClickAddPostHeandler = () => {
         let text = newAddPostElement
         if (text.current) {
+            debugger
             addPost()
         }
     }

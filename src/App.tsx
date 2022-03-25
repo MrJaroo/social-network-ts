@@ -9,14 +9,13 @@ import News from "./components/News/News";
 import {PostTypeProps} from "./components/Profile/MyPosts/Post/Post";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {DialogItemProps} from "./components/Dialogs/DialogItem/DialogItem";
-import {changeTextArea, State} from "./redux/state";
+import {State} from "./redux/state";
 
 
 export type AppPropsType = {
     state: State
     addPost: () => void
     changeTextArea:(text:string) => void
-
 }
 
 const App: React.FC<AppPropsType> = ({
@@ -32,8 +31,8 @@ const App: React.FC<AppPropsType> = ({
                 <div className='content'>
                     <Routes>
                         <Route path={'profile'} element={<Profile state={state.profilePage}
-                                                                  addPost={addPost}
-                                                                  changeTextArea={changeTextArea}
+                                                                  addPost={addPost.bind(state)}
+                                                                  changeTextArea={changeTextArea.bind(state)}
                         />}/>
                         <Route path={'message'} element={<Dialogs state={state.messagePage}/>}/>
                         <Route path={'news'} element={<News/>}/>

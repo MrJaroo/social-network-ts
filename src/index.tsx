@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import {addPost, changeTextArea, State, state, subscribe} from "./redux/state";
+import {State, store} from "./redux/state";
 import ReactDOM from "react-dom";
 import React from "react";
 import './index.css';
@@ -8,14 +8,14 @@ import App from "./App";
  let rerenderIntaerThree = (state:State) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} addPost={addPost} changeTextArea={changeTextArea}
+            <App state={state} addPost={store.addPost.bind(store)} changeTextArea={store.changeTextArea.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-rerenderIntaerThree(state)
-subscribe(()=> rerenderIntaerThree(state))
+rerenderIntaerThree(store.getState())
+store.subscribe(()=> rerenderIntaerThree(store.getState()))
 
 
 // If you want to start measuring performance in your app, pass a function

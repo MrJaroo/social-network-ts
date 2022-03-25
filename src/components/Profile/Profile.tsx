@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Profile.module.css'
 import MyPosts, {MyPostType} from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {changeTextArea, PosptsArr, posts, State} from "../../redux/state";
+import {PosptsArr} from "../../redux/state";
 
 export type ProfileType = {
     state: PosptsArr
