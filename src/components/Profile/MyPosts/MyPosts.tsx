@@ -1,20 +1,28 @@
 import React, {LegacyRef} from 'react';
 import s from "./MyPosts.module.css";
 import Post, {PostTypeProps} from "./Post/Post";
-import {PosptsArr} from "../../../redux/state";
+import {addchangeTextAreaCreator, addPostActionCreator, PosptsArr} from "../../../redux/state";
 
 export type MyPostType = {
     statePosts: PosptsArr
     /*addPost: () => void
     changeTextArea: (text: string) => void*/
-    dispatch:(action:any) => void
+    dispatch: (action: any) => void
 }
+
+/*const addPostActionCreator = () => {
+    return {
+        type: 'ADD-POST'
+    }
+}
+const addchangeTextAreaCreator = (text: string) => {
+    return {type: 'change-Text-Area', text: text}
+}*/
 
 const MyPosts: React.FC<MyPostType> = ({
                                            statePosts,
-    dispatch
-                                          /* addPost,
-                                           changeTextArea*/
+                                           dispatch
+
                                        }) => {
     const elementPost = statePosts.posts.map(p => {
         return <Post key={p.id} id={p.id} message={p.message} likeCounts={p.likeCounts}/>
@@ -26,15 +34,15 @@ const MyPosts: React.FC<MyPostType> = ({
         let text = newAddPostElement
         if (text.current) {
             /*addPost()*/
-            dispatch({type:'ADD-POST'})
+            dispatch(addPostActionCreator());
         }
     }
 
     const onPostChange = () => {
         let text = newAddPostElement
-        if(text.current){
-            /*changeTextArea(text.current.value)*/
-            dispatch({type:'change-Text-Area',text:text.current.value})
+        if (text.current) {
+            let action = addchangeTextAreaCreator(text.current.value)
+            dispatch(action)
         }
     }
 

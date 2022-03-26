@@ -36,6 +36,9 @@ export type Store = {
 }
 
 
+const ADD_POST = 'ADD-POST';
+const CHANGE_TEXT_AREA = 'change-Text-Area'
+
 export let store: Store = {
     _state: {
         profilePage: {
@@ -82,66 +85,27 @@ export let store: Store = {
         this.rerenderIntaerThree = observer
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
             this._state.profilePage.posts.push(newPostAdd)
             this._state.profilePage.messageInput = '';
             this.rerenderIntaerThree()
-        } else if (action.type === 'change-Text-Area') {
+        } else if (action.type === CHANGE_TEXT_AREA) {
             this._state.profilePage.messageInput = action.text;
             this.rerenderIntaerThree()
         }
     }
-
-
 }
 
-/*let rerenderIntaerThree = () => {
-    console.log('State change')
-}*/
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+export const addchangeTextAreaCreator = (text: string) => {
+    return {type: CHANGE_TEXT_AREA, text: text}
+}
 
-/*export let state: State = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'You ben', likeCounts: 100},
-            {id: 2, message: 'How title', likeCounts: 1},
-            {id: 3, message: 'I love react', likeCounts: 43},
-        ],
-        messageInput: '',
-    },
-    messagePage: {
-        dialogs: [
-            {id: 1, name: 'Mike', lastName: 'Dolinin'},
-            {id: 2, name: 'Nik', lastName: 'White'},
-            {id: 3, name: 'Steve', lastName: 'Porerie'},
-            {id: 3, name: 'Bob', lastName: 'Lucas'},
-        ],
-        message: [
-            {id: 1, message: 'hi'},
-            {id: 2, message: 'Hello'},
-            {id: 3, message: 'I wont to learn this lesson'},
-            {id: 4, message: 'I am Bob '},
-            {id: 5, message: 'Hello my friend '},
-        ]
-    },
-}*/
-
-
-/*export let addPost = () => {
-    const newPostAdd: posts = {id: 5, message: state.profilePage.messageInput, likeCounts: 0}
-    state.profilePage.posts.push(newPostAdd)
-    state.profilePage.messageInput = '';
-    rerenderIntaerThree()
-}*/
-
-/*export const changeTextArea = (text: string) => {
-    state.profilePage.messageInput = text;
-    rerenderIntaerThree()
-}*/
-
-/*export const subscribe = (observer: () => void) => {
-    rerenderIntaerThree = observer
-}*/
 
 
 
