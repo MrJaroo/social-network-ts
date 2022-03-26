@@ -6,19 +6,21 @@ import {PosptsArr} from "../../redux/state";
 
 export type ProfileType = {
     state: PosptsArr
-    addPost: () => void
-    changeTextArea:(text:string) => void
+    /*addPost: () => void
+    changeTextArea:(text:string) => void*/
+    dispatch:(action:any) => void
 }
 
 const Profile:React.FC<ProfileType> = ({
     state,
-    addPost,
-    changeTextArea,
+    dispatch
+   /* addPost,
+    changeTextArea,*/
                                        }) => {
     return (
         <div className={s.content}>
             <ProfileInfo/>
-            <MyPosts statePosts={state} addPost={addPost} changeTextArea={changeTextArea}/>
+            <MyPosts statePosts={state} dispatch={dispatch}/>
         </div>
     );
 };

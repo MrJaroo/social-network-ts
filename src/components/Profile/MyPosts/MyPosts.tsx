@@ -5,14 +5,16 @@ import {PosptsArr} from "../../../redux/state";
 
 export type MyPostType = {
     statePosts: PosptsArr
-    addPost: () => void
-    changeTextArea: (text: string) => void
+    /*addPost: () => void
+    changeTextArea: (text: string) => void*/
+    dispatch:(action:any) => void
 }
 
 const MyPosts: React.FC<MyPostType> = ({
                                            statePosts,
-                                           addPost,
-                                           changeTextArea
+    dispatch
+                                          /* addPost,
+                                           changeTextArea*/
                                        }) => {
     const elementPost = statePosts.posts.map(p => {
         return <Post key={p.id} id={p.id} message={p.message} likeCounts={p.likeCounts}/>
@@ -23,15 +25,16 @@ const MyPosts: React.FC<MyPostType> = ({
     const onClickAddPostHeandler = () => {
         let text = newAddPostElement
         if (text.current) {
-            debugger
-            addPost()
+            /*addPost()*/
+            dispatch({type:'ADD-POST'})
         }
     }
 
     const onPostChange = () => {
         let text = newAddPostElement
         if(text.current){
-            changeTextArea(text.current.value)
+            /*changeTextArea(text.current.value)*/
+            dispatch({type:'change-Text-Area',text:text.current.value})
         }
     }
 

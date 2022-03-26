@@ -14,14 +14,16 @@ import {State} from "./redux/state";
 
 export type AppPropsType = {
     state: State
-    addPost: () => void
-    changeTextArea:(text:string) => void
+   /* addPost: () => void
+    changeTextArea:(text:string) => void*/
+    dispatch:(action:any) => void
 }
 
 const App: React.FC<AppPropsType> = ({
                                          state,
-    addPost,
-    changeTextArea,
+   /* addPost,
+    changeTextArea,*/
+    dispatch
                                      }) => {
     return (
         <BrowserRouter>
@@ -31,8 +33,10 @@ const App: React.FC<AppPropsType> = ({
                 <div className='content'>
                     <Routes>
                         <Route path={'profile'} element={<Profile state={state.profilePage}
-                                                                  addPost={addPost.bind(state)}
-                                                                  changeTextArea={changeTextArea.bind(state)}
+                                                                  dispatch={dispatch}
+                                                                 /* addPost={addPost.bind(state)}
+                                                                  changeTextArea={changeTextArea.bind(state)}*/
+
                         />}/>
                         <Route path={'message'} element={<Dialogs state={state.messagePage}/>}/>
                         <Route path={'news'} element={<News/>}/>

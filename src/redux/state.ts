@@ -25,16 +25,18 @@ export type State = {
     messagePage: MessagePage
 }
 export type Store = {
-    _state:State
+    _state: State
     rerenderIntaerThree: () => void
-    addPost:() => void
-    changeTextArea: (text:string) => void
-    subscribe:(observer:() => void) => void
-    getState:() => State
+   /* _addPost: () => void
+    _changeTextArea: (text: string) => void*/
+    subscribe: (observer: () => void) => void
+    getState: () => State
+    dispatch:(action:any) =>void
+
 }
 
 
-export let store:Store = {
+export let store: Store = {
     _state: {
         profilePage: {
             posts: [
@@ -60,25 +62,38 @@ export let store:Store = {
             ]
         },
     },
-    getState(){
+    getState() {
         return this._state
     },
     rerenderIntaerThree() {
         console.log('State change')
     },
-    addPost() {
-        const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
-        this._state.profilePage.posts.push(newPostAdd)
-        this._state.profilePage.messageInput = '';
-        this.rerenderIntaerThree()
-    },
-    changeTextArea (text: string)  {
+   /*  _addPost() {
+         const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
+         this._state.profilePage.posts.push(newPostAdd)
+         this._state.profilePage.messageInput = '';
+         this.rerenderIntaerThree()
+     },
+    _changeTextArea (text: string)  {
         this._state.profilePage.messageInput = text;
         this.rerenderIntaerThree()
-    },
-    subscribe  (observer: () => void)  {
+    },*/
+    subscribe(observer: () => void) {
         this.rerenderIntaerThree = observer
     },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
+            this._state.profilePage.posts.push(newPostAdd)
+            this._state.profilePage.messageInput = '';
+            this.rerenderIntaerThree()
+        } else if (action.type === 'change-Text-Area') {
+            this._state.profilePage.messageInput = action.text;
+            this.rerenderIntaerThree()
+        }
+    }
+
+
 }
 
 /*let rerenderIntaerThree = () => {
