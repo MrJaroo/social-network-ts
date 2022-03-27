@@ -38,7 +38,7 @@ const App: React.FC<AppPropsType> = ({
                                                                   changeTextArea={changeTextArea.bind(state)}*/
 
                         />}/>
-                        <Route path={'message'} element={<Dialogs state={state.messagePage}/>}/>
+                        <Route path={'message'} element={<Dialogs state={state.messagePage} dispatch={dispatch}/>}/>
                         <Route path={'news'} element={<News/>}/>
                     </Routes>
                 </div>

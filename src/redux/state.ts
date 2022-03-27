@@ -1,3 +1,6 @@
+import {profileRedicer} from "./profileReducer";
+import {DialogsReducer} from "./dialogsReducer";
+
 export type posts = {
     id: number
     message: string
@@ -10,6 +13,7 @@ export type PosptsArr = {
 export type MessagePage = {
     dialogs: Array<Dialogs>
     message: Array<Message>
+    newMessageText: string
 }
 export type Dialogs = {
     id: number
@@ -27,17 +31,13 @@ export type State = {
 export type Store = {
     _state: State
     rerenderIntaerThree: () => void
-   /* _addPost: () => void
-    _changeTextArea: (text: string) => void*/
+    /* _addPost: () => void
+     _changeTextArea: (text: string) => void*/
     subscribe: (observer: () => void) => void
     getState: () => State
-    dispatch:(action:any) =>void
+    dispatch: (action: any) => void
 
 }
-
-
-const ADD_POST = 'ADD-POST';
-const CHANGE_TEXT_AREA = 'change-Text-Area'
 
 export let store: Store = {
     _state: {
@@ -62,7 +62,8 @@ export let store: Store = {
                 {id: 3, message: 'I wont to learn this lesson'},
                 {id: 4, message: 'I am Bob '},
                 {id: 5, message: 'Hello my friend '},
-            ]
+            ],
+            newMessageText: '',
         },
     },
     getState() {
@@ -71,40 +72,17 @@ export let store: Store = {
     rerenderIntaerThree() {
         console.log('State change')
     },
-   /*  _addPost() {
-         const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
-         this._state.profilePage.posts.push(newPostAdd)
-         this._state.profilePage.messageInput = '';
-         this.rerenderIntaerThree()
-     },
-    _changeTextArea (text: string)  {
-        this._state.profilePage.messageInput = text;
-        this.rerenderIntaerThree()
-    },*/
     subscribe(observer: () => void) {
         this.rerenderIntaerThree = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            const newPostAdd: posts = {id: 5, message: this._state.profilePage.messageInput, likeCounts: 0}
-            this._state.profilePage.posts.push(newPostAdd)
-            this._state.profilePage.messageInput = '';
-            this.rerenderIntaerThree()
-        } else if (action.type === CHANGE_TEXT_AREA) {
-            this._state.profilePage.messageInput = action.text;
-            this.rerenderIntaerThree()
-        }
+        this._state.profilePage = profileRedicer(this._state.profilePage,action);
+        this._state.messagePage = DialogsReducer(this._state.messagePage,action);
+        this.rerenderIntaerThree();
     }
 }
 
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    }
-}
-export const addchangeTextAreaCreator = (text: string) => {
-    return {type: CHANGE_TEXT_AREA, text: text}
-}
+
 
 
 

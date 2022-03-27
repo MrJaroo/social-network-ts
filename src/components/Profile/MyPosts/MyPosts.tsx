@@ -1,7 +1,7 @@
 import React, {LegacyRef} from 'react';
 import s from "./MyPosts.module.css";
 import Post, {PostTypeProps} from "./Post/Post";
-import {addchangeTextAreaCreator, addPostActionCreator, PosptsArr} from "../../../redux/state";
+import {addchangeTextAreaCreator, addPostActionCreator, PosptsArr} from "../../../redux/profileReducer";
 
 export type MyPostType = {
     statePosts: PosptsArr
